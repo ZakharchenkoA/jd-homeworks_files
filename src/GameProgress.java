@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.io.Serializable;
 
 public class GameProgress implements Serializable {
@@ -7,6 +8,19 @@ public class GameProgress implements Serializable {
     private int weapons;
     private int lvl;
     private double distance;
+=======
+import java.io.Serial;
+import java.io.Serializable;
+
+public class GameProgress implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final int health;
+    private final int weapons;
+    private final int lvl;
+    private final double distance;
+>>>>>>> 4533a55 (Bug fix)
 
     public GameProgress(int health, int weapons, int lvl, double distance) {
         this.health = health;
