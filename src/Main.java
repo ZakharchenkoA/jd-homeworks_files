@@ -5,73 +5,14 @@ import java.util.zip.ZipOutputStream;
 
 public class Main {
 
-<<<<<<< HEAD
-    private static final String saveDirectory = "/users/Andrey/Games/savegames/";
-    final static List<String> saveFiles = new ArrayList<>();
-    final static Map<String, GameProgress> gameProgresses = new LinkedHashMap<>();
-=======
     private static final String saveDirectory = "/users/Andrey/Games/saveGame/";
 
     private static final String home = "/users/Andrey/Games/";
->>>>>>> 4533a55 (Bug fix)
 
     public static void main(String[] args) {
 
         StringBuilder sb = new StringBuilder();
 
-<<<<<<< HEAD
-        File src = new File("/users/Andrey/Games/src");
-        if (src.mkdir()) sb.append("Каталог 'src' создан");
-
-        File res = new File("/users/Andrey/Games/res");
-        if (res.mkdir()) sb.append("\nКаталог 'res' создан");
-
-        File saveGame = new File("/users/Andrey/Games/savegames");
-        if (saveGame.mkdir()) sb.append("\nКаталог 'savegames' создан");
-
-        File temp = new File("/users/Andrey/Games/temp");
-        if (temp.mkdir()) sb.append("\nКаталог 'temp' создан");
-
-        File main = new File("/users/Andrey/Games/src/main");
-        if (main.mkdir()) sb.append("\nКаталог 'main' создан");
-
-        File test = new File("/users/Andrey/Games/src/test");
-        if (test.mkdir()) sb.append("\nКаталог 'test' создан");
-
-        File mainJava = new File(main, "Main.java");
-        try {
-            if (mainJava.createNewFile()) sb.append("\nФайл 'Main.java' был создан");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        File utils = new File(main, "Utils.java");
-        try {
-            if (utils.createNewFile()) sb.append("\nФайл 'Utils.java' был создан");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        File drawables = new File("/users/Andrey/Games/res/drawables");
-        if (drawables.mkdir()) sb.append("\nКаталог 'drawables' создан");
-
-        File vectors = new File("/users/Andrey/Games/res/vectors");
-        if (vectors.mkdir()) sb.append("\nКаталог 'vectors' создан");
-
-        File icons = new File("/users/Andrey/Games/res/icons");
-        if (icons.mkdir()) sb.append("\nКаталог 'icons' создан");
-
-        File tempTxt = new File(temp, "temp.txt");
-        try {
-            if (tempTxt.createNewFile()) sb.append("\nФайл 'temp.txt' был создан");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        String text = sb.toString();
-
-        try (FileWriter writer = new FileWriter(tempTxt)) {
-=======
         Map<String, File> directories = new HashMap<>();
         directories.put("src", new File(home + "src"));
         directories.put("res", new File(home + "res"));
@@ -113,18 +54,15 @@ public class Main {
         String text = sb.toString();
 
         try (FileWriter writer = new FileWriter(files.get("temp"))) {
->>>>>>> 4533a55 (Bug fix)
             writer.write(text);
             writer.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
-<<<<<<< HEAD
-=======
+
         List<String> saveFiles = new ArrayList<>();
         Map<String, GameProgress> gameProgresses = new HashMap<>();
->>>>>>> 4533a55 (Bug fix)
 
         File saves = new File(saveDirectory);
         if (saves.exists()) {
@@ -137,11 +75,7 @@ public class Main {
 
             zipFiles(saveDirectory + "/zip.zip", saveFiles);
         } else {
-<<<<<<< HEAD
-            System.out.println("Директории 'savegames' не существует");
-=======
             System.out.println("Директории 'saveGame' не существует");
->>>>>>> 4533a55 (Bug fix)
         }
     }
 
@@ -171,11 +105,7 @@ public class Main {
                     zos.closeEntry();
                     File file = new File(f + ".dat");
                     if (file.delete()) {
-<<<<<<< HEAD
-                        System.out.println("Файл удален");
-=======
                         System.out.println("Файл " + f + " удален");
->>>>>>> 4533a55 (Bug fix)
                     } else {
                         System.out.println("Ошибка удаления файла");
                     }
