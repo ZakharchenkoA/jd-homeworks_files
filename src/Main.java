@@ -6,9 +6,7 @@ import java.util.zip.ZipOutputStream;
 public class Main {
 
     private static final String saveDirectory = "/users/Andrey/Games/saveGame/";
-
     private static final String home = "/users/Andrey/Games/";
-
     public static void main(String[] args) {
 
         StringBuilder sb = new StringBuilder();
@@ -35,10 +33,10 @@ public class Main {
                 new File(directories.get("main") + "/Main.java")
         );
         files.put("Utils",
-                new File(directories.get("main").getAbsolutePath() + "/Utils.java")
+                new File(directories.get("main") + "/Utils.java")
         );
         files.put("temp",
-                new File(directories.get("temp").getAbsolutePath() + "/temp.txt")
+                new File(directories.get("temp") + "/temp.txt")
         );
 
         files.forEach((k, v) -> {
