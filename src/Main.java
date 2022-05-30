@@ -58,29 +58,26 @@ public class Main {
             sb.append(e.getMessage()).append('\n');
         }
 
-        GameProgress progress1 = new GameProgress(500, 4, 5, 234);
-        GameProgress progress2 = new GameProgress(85500, 76, 85, 4);
-        GameProgress progress3 = new GameProgress(7500, 34, 25, 23);
+        GameProgress progress1 = new GameProgress(90, 1, 3, 200);
+        GameProgress progress2 = new GameProgress(80, 3, 8, 400);
+        GameProgress progress3 = new GameProgress(30, 4, 12, 600);
 
-        saveGame(saveDirectory + "save1.dat", progress1);
-        saveGame(saveDirectory + "save2.dat", progress2);
-        saveGame(saveDirectory + "save3.dat", progress3);
+        ArrayList<String> saveFiles = new ArrayList<>();
+        saveFiles.add(saveGame(saveDirectory + "save1.dat", progress1));
+        saveFiles.add(saveGame(saveDirectory + "save2.dat", progress2));
+        saveFiles.add(saveGame(saveDirectory + "save3.dat", progress3));
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add(saveDirectory + "save1.dat");
-        list.add(saveDirectory + "save2.dat");
-        list.add(saveDirectory + "save3.dat");
-
-        zipFiles(saveDirectory + "save.zip", list);
+        zipFiles(saveDirectory + "save.zip", saveFiles);
     }
 
-    public static void saveGame(String directory, GameProgress gameProgress) {
+    public static String saveGame(String directory, GameProgress gameProgress) {
         try (FileOutputStream fos = new FileOutputStream(directory + ".dat");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(gameProgress);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return directory;
     }
 
     public static void zipFiles(String path, List<String> files) {
