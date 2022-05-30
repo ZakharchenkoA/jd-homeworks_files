@@ -7,74 +7,71 @@ public class Main {
 
     private static final String saveDirectory = "/users/Andrey/Games/saveGame/";
     private static final String home = "/users/Andrey/Games/";
+
     public static void main(String[] args) {
 
         StringBuilder sb = new StringBuilder();
 
-        Map<String, File> directories = new HashMap<>();
-        directories.put("src", new File(home + "src"));
-        directories.put("res", new File(home + "res"));
-        directories.put("saveGame", new File(home + "saveGame"));
-        directories.put("temp", new File(home + "temp"));
-        directories.put("main", new File(home + "src/main"));
-        directories.put("test", new File(home + "src/test"));
-        directories.put("drawables", new File(home + "res/drawables"));
-        directories.put("vectors", new File(home + "res/vectors"));
-        directories.put("icons", new File(home + "res/icons"));
+        List<File> directories = Arrays.asList(
+                new File(home + "src"),
+                new File(home + "res"),
+                new File(home + "saveGame"),
+                new File(home + "temp"),
+                new File(home + "src/main"),
+                new File(home + "src/test"),
+                new File(home + "res/drawables"),
+                new File(home + "res/vectors"),
+                new File(home + "res/icons"));
 
-        directories.forEach((k, v) -> {
-            if (v.mkdir()) {
-                sb.append("Каталог ").append(k).append(" создан\n");
-            }
+        directories.forEach(d -> {
+            if (d.mkdir()) sb.append("директория ")
+                    .append(d)
+                    .append(" создана успешно\n");
+            else sb.append("директория")
+                    .append(d)
+                    .append(" не создана\n");
         });
 
-        Map<String, File> files = new HashMap<>();
-        files.put("Main",
-                new File(directories.get("main") + "/Main.java")
-        );
-        files.put("Utils",
-                new File(directories.get("main") + "/Utils.java")
-        );
-        files.put("temp",
-                new File(directories.get("temp") + "/temp.txt")
+        List<File> files = Arrays.asList(
+                new File(home + "src/main/Main.java"),
+                new File(home + "src/main/Utils.java"),
+                new File(home + "temp/temp.txt")
         );
 
-        files.forEach((k, v) -> {
+        files.forEach(f -> {
             try {
-                if (v.createNewFile()) {
-                    sb.append("Файл ").append(k).append(" создан\n");
-                }
-            }catch (IOException ex){
-                ex.getStackTrace();
+                if (f.createNewFile()) sb.append("файл ")
+                        .append(f)
+                        .append(" создан успешно\n");
+                else sb.append("файл ")
+                        .append(f)
+                        .append(" не создан\n");
+            } catch (IOException e) {
+                sb.append(e.getMessage()).append('\n');
             }
         });
 
-        String text = sb.toString();
-
-        try (FileWriter writer = new FileWriter(files.get("temp"))) {
-            writer.write(text);
+        try (FileWriter writer = new FileWriter(home + "temp/temp.txt")) {
+            writer.write(sb.toString());
             writer.flush();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (IOException e) {
+            sb.append(e.getMessage()).append('\n');
         }
 
+        GameProgress progress1 = new GameProgress(500, 4, 5, 234);
+        GameProgress progress2 = new GameProgress(85500, 76, 85, 4);
+        GameProgress progress3 = new GameProgress(7500, 34, 25, 23);
 
-        List<String> saveFiles = new ArrayList<>();
-        Map<String, GameProgress> gameProgresses = new HashMap<>();
+        saveGame(saveDirectory + "save1.dat", progress1);
+        saveGame(saveDirectory + "save2.dat", progress2);
+        saveGame(saveDirectory + "save3.dat", progress3);
 
-        File saves = new File(saveDirectory);
-        if (saves.exists()) {
-            gameProgresses.put(saveDirectory + "save1", new GameProgress(60, 2, 7, 1050));
-            gameProgresses.put(saveDirectory + "save2", new GameProgress(100, 4, 21, 3020));
-            gameProgresses.put(saveDirectory + "save3", new GameProgress(40, 10, 80, 4800));
+        ArrayList<String> list = new ArrayList<>();
+        list.add(saveDirectory + "save1.dat");
+        list.add(saveDirectory + "save2.dat");
+        list.add(saveDirectory + "save3.dat");
 
-            gameProgresses.forEach(Main::saveGame);
-            gameProgresses.forEach((x, progress) -> saveFiles.add(x));
-
-            zipFiles(saveDirectory + "/zip.zip", saveFiles);
-        } else {
-            System.out.println("Директории 'saveGame' не существует");
-        }
+        zipFiles(saveDirectory + "save.zip", list);
     }
 
     public static void saveGame(String directory, GameProgress gameProgress) {
